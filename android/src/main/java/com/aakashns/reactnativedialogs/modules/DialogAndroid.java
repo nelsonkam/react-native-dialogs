@@ -111,7 +111,7 @@ public class DialogAndroid extends ReactContextBaseJavaModule {
                         if (progress.hasKey("max")) {
                             int max = progress.getInt("max");
                         }
-                        boolean showMinMax = progress.hasKey('showMinMax') && progress.getBoolean('showMinMax');
+                        boolean showMinMax = progress.hasKey("showMinMax") && progress.getBoolean("showMinMax");
                         builder.progress(false, max, showMinMax);
                     }
             }
