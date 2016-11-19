@@ -1,3 +1,3 @@
-var DialogAndroid = require('./DialogAndroid');
+var DialogBuilder = require('./DialogBuilder');
 
-module.exports = DialogAndroid;
+module.exports = DialogBuilder;
