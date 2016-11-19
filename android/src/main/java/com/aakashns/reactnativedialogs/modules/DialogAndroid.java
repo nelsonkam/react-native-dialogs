@@ -20,6 +20,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public class DialogAndroid extends ReactContextBaseJavaModule {
 
+    // Returns true if the dialog that is being built is
+    // a determinate progress dialog.
+    private boolean isDeterminateProgress = false;
+
     @Override
     public String getName() {
         return "DialogAndroid";
@@ -102,8 +106,13 @@ public class DialogAndroid extends ReactContextBaseJavaModule {
                                 progress.getString("style").equals("horizontal");
                         if (horizontal) builder.progressIndeterminateStyle(horizontal);
                     } else {
-                        // Determinate progress bar not supported currently
-                        // TODO : Implement determinate progress bar
+                        this.isDeterminateProgress = true;
+                        int max = 100;
+                        if (progress.hasKey("max")) {
+                            int max = progress.getInt("max");
+                        }
+                        boolean showMinMax = progress.hasKey('showMinMax') && progress.getBoolean('showMinMax');
+                        builder.progress(false, max, showMinMax);
                     }
             }
         }
@@ -282,14 +291,14 @@ public class DialogAndroid extends ReactContextBaseJavaModule {
                 }
             });
         }
-        UiThreadUtil.runOnUiThread(new Runnable() {
-            public void run() {
+        // UiThreadUtil.runOnUiThread(new Runnable() {
+        //     public void run() {
                 if (mDialog != null)
                     mDialog.dismiss();
                 mDialog = mBuilder.build();
                 mDialog.show();
-            }
-        });
+        //     }
+        // });
     }
 
     MaterialDialog simple;
